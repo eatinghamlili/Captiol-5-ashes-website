@@ -155,7 +155,7 @@ function App() {
         <div className="overflow-hidden rounded-[5px] border border-[#d7cbb9] bg-[#eae3d6] shadow-[0_24px_65px_-42px_rgba(65,50,37,.38)]">
           <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#d5c8b5] px-5 py-4 md:px-8">
             <div className="flex items-center gap-3">
-              <span className="text-xs font-semibold text-[#a75239]">FIG. 01</span>
+              <span className="text-xs font-semibold text-[#a75239]">Fig. 01</span>
               <h2 className="serif text-xl md:text-2xl">A breath, mapped</h2>
             </div>
             <p className="text-xs text-[#77766e]">Select a region to investigate</p>
@@ -176,7 +176,7 @@ function App() {
             <article aria-live="polite" className="flex flex-col px-6 py-8 md:px-10 md:py-10">
               <div className="flex items-start justify-between">
                 <div>
-                  <div className="mb-3 text-xs font-semibold text-[#a75239]">STOP {current.number} / 04</div>
+                  <div className="mb-3 text-xs font-semibold text-[#a75239]">Stop {current.number} / 04</div>
                   <h3 className="serif text-3xl leading-tight md:text-[2.65rem]">{current.name}</h3>
                   <p className="mt-2 text-sm text-[#77766e]">{current.subtitle}</p>
                 </div>
@@ -238,17 +238,17 @@ function App() {
         </div>
         <div className="grid gap-px bg-[#d5c8b5] sm:grid-cols-2">
           <div className="bg-[#f7f3eb] p-6 md:p-8">
-            <span className="text-xs font-semibold text-[#a75239]">01 / LIMIT</span>
+            <span className="text-xs font-semibold text-[#a75239]">01 / Limit</span>
             <h3 className="serif mt-3 text-xl">Stay out of ashfall</h3>
             <p className="mt-2 text-sm leading-6 text-[#59656a]">If possible, stay indoors with windows and doors closed. Avoid strenuous activity outdoors while ash is falling.</p>
           </div>
           <div className="bg-[#f7f3eb] p-6 md:p-8">
-            <span className="text-xs font-semibold text-[#a75239]">02 / FILTER</span>
+            <span className="text-xs font-semibold text-[#a75239]">02 / Filter</span>
             <h3 className="serif mt-3 text-xl">Use the right protection</h3>
             <p className="mt-2 text-sm leading-6 text-[#59656a]">When you must go outside, follow local advice on a well-fitting particulate respirator. A cloth face covering may not protect against fine ash.</p>
           </div>
           <div className="bg-[#f7f3eb] p-6 md:col-span-2 md:p-8">
-            <span className="text-xs font-semibold text-[#a75239]">03 / GET HELP</span>
+            <span className="text-xs font-semibold text-[#a75239]">03 / Get help</span>
             <h3 className="serif mt-3 text-xl">Breathing symptoms need attention</h3>
             <p className="mt-2 max-w-[680px] text-sm leading-6 text-[#59656a]">Seek medical help for serious or worsening breathing symptoms. People with asthma or other respiratory conditions should follow their clinician’s plan and local health guidance. This guide is educational and does not diagnose or replace medical advice.</p>
           </div>
