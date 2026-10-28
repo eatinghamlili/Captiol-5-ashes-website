@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    # pnpm-workspace.yaml drops every esbuild/rollup/lightningcss binary except
+    # linux-x64, so this has to be an Ubuntu runner.
+    runs-on: ubuntu-latest
+
+    env:
+      # Both Vite configs throw on startup unless these two are set.
+      PORT: '5000'
+      BASE_PATH: /
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      # typecheck across the workspace, then build every package
+      - run: pnpm run build

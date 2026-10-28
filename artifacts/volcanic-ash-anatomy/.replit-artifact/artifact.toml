@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Volcanic Ash & the Respiratory System"
+description = "An educational microsite by the other cavaliers showing respiratory anatomy and how volcanic ash can affect breathing, with interactive anatomical hotspots."
+version = "1.0.0"
+id = "artifacts/volcanic-ash-anatomy"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 18817
+
+[services.development]
+run = "pnpm --filter @workspace/volcanic-ash-anatomy run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/volcanic-ash-anatomy", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/volcanic-ash-anatomy/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18817"
+BASE_PATH = "/"
