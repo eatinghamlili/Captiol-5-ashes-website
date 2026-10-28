@@ -104,7 +104,7 @@ function AnatomyIllustration({ selected, onSelect }: { selected: PartId; onSelec
           ))}
         </div>
       </div>
-      <p className="diagram-caption">Diagram: LadyofHats / Wikimedia Commons, public domain.</p>
+      <p className="diagram-caption">Diagram: LadyofHats / Wikimedia Commons, public domain, with its labels removed.</p>
     </div>
   );
 }
