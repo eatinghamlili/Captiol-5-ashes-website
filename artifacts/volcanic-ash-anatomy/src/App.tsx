@@ -7,30 +7,30 @@ const parts: Record<PartId, { number: string; name: string; subtitle: string; ro
   nose: {
     number: '01',
     name: 'Nose & nasal passages',
-    subtitle: 'The first filter',
-    role: 'Air enters through the nose, where hairs and mucus trap some particles. The nasal passages also warm and moisten the air.',
-    ash: 'Ash can irritate the lining of the nose and throat. Larger particles may be caught here, but this is not a complete filter.',
+    subtitle: 'Where air gets in',
+    role: 'Air comes in through the nose first. Hairs and mucus catch some of the larger particles, and the passages warm the air and add moisture to it before it goes any further down.',
+    ash: 'Ash irritates the lining, which can leave your nose runny or blocked. Some of it is caught here, but the nose is not a complete filter and finer ash gets past.',
   },
   throat: {
     number: '02',
     name: 'Throat',
-    subtitle: 'A shared passage',
-    role: 'The pharynx carries air from the nose and mouth toward the lower airway. Tiny particles caught in mucus can be swallowed or coughed out.',
-    ash: 'Ash may make the throat feel scratchy or sore and can trigger coughing. Breathing through the mouth bypasses some filtering in the nose.',
+    subtitle: 'Where the nose and mouth meet',
+    role: 'The pharynx is where air from the nose and the mouth joins up before heading down. Particles that get stuck in mucus here are usually swallowed or coughed back out.',
+    ash: 'Ash can leave the throat scratchy or sore and set off a cough. Breathing through your mouth makes that more likely, because the air skips the filtering the nose would have done.',
   },
   airways: {
     number: '03',
     name: 'Airways',
-    subtitle: 'Moving air inward',
-    role: 'The trachea branches into the bronchi and smaller tubes. Mucus and microscopic cilia help move trapped dust back toward the throat.',
-    ash: 'Fine ash can irritate the airways, increasing coughing, wheezing, or tightness—especially for people with asthma or other lung conditions.',
+    subtitle: 'The tubes down to the lungs',
+    role: 'The trachea splits into two bronchi, and those branch again into narrower and narrower tubes. Mucus lines them, and microscopic hairs called cilia sweep trapped dust back up toward the throat.',
+    ash: 'Fine ash irritates these tubes, which can bring on coughing, wheezing, or a tight feeling in the chest. For people with asthma or another lung condition, the effect can be a good deal worse.',
   },
   lungs: {
     number: '04',
     name: 'Lungs & alveoli',
-    subtitle: 'Where gases trade places',
-    role: 'At the ends of the smallest airways are alveoli: tiny air sacs where oxygen moves into the blood and carbon dioxide moves out.',
-    ash: 'Very fine particles can travel deeper into the lungs. Exposure may aggravate breathing problems; effects depend on the ash and the person.',
+    subtitle: 'Where oxygen reaches the blood',
+    role: 'At the end of the smallest tubes sit the alveoli, clusters of air sacs whose walls are thin enough for oxygen to cross into the blood and carbon dioxide to cross back out.',
+    ash: 'The finest particles travel all the way down here. How much harm that does depends on the ash itself and on the person breathing it, but it can make existing breathing problems worse.',
   },
 };
 
@@ -43,24 +43,24 @@ const calloutEffects: Record<PartId, string> = {
 
 const cardCopy: Record<PartId, { normal: string; ash: string; tip: string }> = {
   nose: {
-    normal: 'The nasal passages warm and moisten incoming air and trap some particles with hairs and mucus.',
-    ash: 'Volcanic ash can irritate the lining, causing a runny or stuffy nose.',
-    tip: 'Stay indoors and keep windows closed while ash is falling.',
+    normal: 'The nasal passages warm incoming air, add moisture to it, and trap some particles on hairs and mucus.',
+    ash: 'Ash irritates that lining, so a runny or blocked nose is common.',
+    tip: 'Stay inside with the windows shut while ash is falling.',
   },
   throat: {
-    normal: 'The pharynx moves air from the nose and mouth toward the lower airway.',
-    ash: 'Ash can irritate the throat, causing soreness and a dry cough.',
-    tip: 'Limit outdoor exposure and follow local ash advisories.',
+    normal: 'The pharynx carries air from the nose and mouth down toward the airway.',
+    ash: 'A sore throat and a dry cough are the usual signs that ash has reached it.',
+    tip: 'Keep time outdoors short, and check local ash advisories.',
   },
   airways: {
-    normal: 'The trachea and bronchi carry air to the lungs, while mucus and cilia help move particles back out.',
-    ash: 'Fine ash can cause tightness or wheezing and may worsen asthma or COPD.',
-    tip: 'Stay indoors; if you must go outside, follow public-health guidance on a well-fitting particulate respirator.',
+    normal: 'The trachea and bronchi carry air to the lungs. Mucus and cilia work together to move particles back out again.',
+    ash: 'Fine ash can cause tightness or wheezing, and it may worsen asthma or COPD.',
+    tip: 'Stay indoors. If you have to go out, follow public-health guidance on wearing a well-fitting particulate respirator.',
   },
   lungs: {
-    normal: 'The lungs bring oxygen into the blood through tiny air sacs called alveoli.',
-    ash: 'Fine ash can reach deep into the lungs and worsen breathing problems.',
-    tip: 'Follow local health guidance and seek medical help for serious or worsening symptoms.',
+    normal: 'The lungs pass oxygen into the blood through tiny air sacs called alveoli, and take carbon dioxide back out.',
+    ash: 'Fine enough ash reaches all the way down here, where it can worsen breathing problems.',
+    tip: 'Follow local health guidance, and get medical help if symptoms are serious or getting worse.',
   },
 };
 
@@ -132,17 +132,17 @@ function App() {
       <section id="top" className="relative mx-auto max-w-[1320px] px-6 pb-12 pt-8 md:px-10 md:pb-20 md:pt-14">
         <div className="relative max-w-[850px] rise-in">
           <div className="mb-6 flex items-center gap-3 text-xs text-[#a75239]">
-            <span className="h-px w-8 bg-[#a75239]" /> Science / Field note 01
+            <span className="h-px w-8 bg-[#a75239]" /> Science project
           </div>
           <h1 className="serif max-w-[800px] text-[clamp(3.1rem,8vw,7.3rem)] leading-[.91] tracking-[-.055em]">
-            When ash<br className="hidden sm:block" /> enters the <em className="font-medium text-[#a75239]">air.</em>
+            What volcanic ash<br className="hidden sm:block" /> does to your lungs
           </h1>
           <div className="mt-8 grid max-w-[760px] gap-5 sm:grid-cols-[1fr_230px] sm:items-end">
             <p className="max-w-[520px] text-[15px] leading-7 text-[#59656a] md:text-[17px]">
-              Volcanic ash is not soft fireplace ash. It is fine, abrasive rock and glass that can travel with the wind—and into the system that keeps us breathing.
+              Volcanic ash is nothing like the soft ash from a fireplace. It is made of tiny pieces of rock and volcanic glass, hard and sharp enough to scratch, and light enough for the wind to carry a long way. That is also how it ends up in the air people are breathing.
             </p>
             <div className="border-l border-[#cbbba4] pl-4 text-xs leading-5 text-[#77766e]">
-              Follow its path from first breath to the tiny air sacs where oxygen enters your blood.
+              This page follows that air from the nose down to the air sacs deep in the lungs, where oxygen crosses into the blood.
             </div>
           </div>
         </div>
@@ -156,9 +156,9 @@ function App() {
           <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#d5c8b5] px-5 py-4 md:px-8">
             <div className="flex items-center gap-3">
               <span className="text-xs font-semibold text-[#a75239]">Fig. 01</span>
-              <h2 className="serif text-xl md:text-2xl">A breath, mapped</h2>
+              <h2 className="serif text-xl md:text-2xl">How a breath travels</h2>
             </div>
-            <p className="text-xs text-[#77766e]">Select a region to investigate</p>
+            <p className="text-xs text-[#77766e]">Click a part of the diagram</p>
           </div>
           <div className="grid min-h-[590px] lg:grid-cols-[minmax(0,1.15fr)_minmax(330px,.85fr)]">
             <div className="relative flex min-h-[470px] flex-col items-center justify-center overflow-hidden border-b border-[#d5c8b5] px-5 py-8 lg:border-b-0 lg:border-r lg:px-8">
@@ -232,25 +232,25 @@ function App() {
         <div className="relative overflow-hidden bg-[#27383c] p-7 text-[#f3efe5] md:p-9">
           <div className="relative">
             <div className="mb-5 flex items-center gap-2 text-xs font-semibold text-[#d5a47e]"><AlertTriangle size={14} /> If ash is in the air</div>
-            <h2 className="serif max-w-sm text-3xl leading-tight">Less exposure is the best protection.</h2>
-            <p className="mt-4 max-w-md text-sm leading-6 text-[#d2d7d1]">Ash clouds can vary. Follow local emergency and public-health guidance, especially during and after an eruption.</p>
+            <h2 className="serif max-w-sm text-3xl leading-tight">The less of it you breathe in, the better.</h2>
+            <p className="mt-4 max-w-md text-sm leading-6 text-[#d2d7d1]">No two ashfalls are the same, so local emergency and public-health advice is what to go by, both during an eruption and for a while after it.</p>
           </div>
         </div>
         <div className="grid gap-px bg-[#d5c8b5] sm:grid-cols-2">
           <div className="bg-[#f7f3eb] p-6 md:p-8">
             <span className="text-xs font-semibold text-[#a75239]">01 / Limit</span>
             <h3 className="serif mt-3 text-xl">Stay out of ashfall</h3>
-            <p className="mt-2 text-sm leading-6 text-[#59656a]">If possible, stay indoors with windows and doors closed. Avoid strenuous activity outdoors while ash is falling.</p>
+            <p className="mt-2 text-sm leading-6 text-[#59656a]">Stay inside while ash is falling, with the windows and doors shut. Anything strenuous outdoors is better left until later.</p>
           </div>
           <div className="bg-[#f7f3eb] p-6 md:p-8">
             <span className="text-xs font-semibold text-[#a75239]">02 / Filter</span>
             <h3 className="serif mt-3 text-xl">Use the right protection</h3>
-            <p className="mt-2 text-sm leading-6 text-[#59656a]">When you must go outside, follow local advice on a well-fitting particulate respirator. A cloth face covering may not protect against fine ash.</p>
+            <p className="mt-2 text-sm leading-6 text-[#59656a]">If you do have to go out, check local advice on particulate respirators and on fitting one properly. A cloth face covering is not likely to stop particles this fine.</p>
           </div>
           <div className="bg-[#f7f3eb] p-6 md:col-span-2 md:p-8">
             <span className="text-xs font-semibold text-[#a75239]">03 / Get help</span>
             <h3 className="serif mt-3 text-xl">Breathing symptoms need attention</h3>
-            <p className="mt-2 max-w-[680px] text-sm leading-6 text-[#59656a]">Seek medical help for serious or worsening breathing symptoms. People with asthma or other respiratory conditions should follow their clinician’s plan and local health guidance. This guide is educational and does not diagnose or replace medical advice.</p>
+            <p className="mt-2 max-w-[680px] text-sm leading-6 text-[#59656a]">Get medical help if breathing becomes difficult, or if symptoms keep getting worse. Anyone with asthma or another respiratory condition should stick to the plan their clinician gave them and follow local health guidance. This page was written to explain the subject; it is not medical advice and cannot diagnose anything.</p>
           </div>
         </div>
       </section>
@@ -263,7 +263,7 @@ function App() {
             <span className="hidden h-4 w-px bg-[#cbbba4] sm:block" />
             <span>Student science project</span>
           </div>
-          <span className="text-xs">Anatomy is the map. Protection is the point.</span>
+          <span className="text-xs">An educational page, not medical advice.</span>
         </div>
       </footer>
     </main>
