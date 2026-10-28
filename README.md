@@ -42,6 +42,12 @@ To turn Pages on: **Settings → Pages → Build and deployment → Source: GitH
 Actions**. The workflow derives the correct `BASE_PATH` from the repo name, so
 assets resolve whether the site is served from `/<repo>/` or a custom domain.
 
+This is a one-time manual step and the workflow cannot do it for you.
+`actions/configure-pages` accepts an `enablement` parameter, but creating a
+Pages site needs admin scope that `GITHUB_TOKEN` is never granted, so it fails
+with "Resource not accessible by integration". Until Pages is switched on, the
+deploy fails at `configure-pages` with "Get Pages site failed".
+
 Only the static site is deployed to Pages. The API server and Postgres can't run
 there — keep those on Replit (or another host) if you start using them.
 

@@ -30,10 +30,6 @@ jobs:
           cache: pnpm
 
       - uses: actions/configure-pages@v6
-        with:
-          # Turn Pages on through the API, so deploying does not depend on the
-          # repository setting having been switched to GitHub Actions by hand.
-          enablement: true
 
       - name: Work out the Pages base path
         id: base
