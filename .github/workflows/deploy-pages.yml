@@ -6,17 +6,20 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  # Pushing the built site to the gh-pages branch is all this needs; the
+  # Pages-native actions wanted `pages: write`, which could not create the
+  # Pages site because that call requires admin scope.
+  contents: write
 
 concurrency:
   group: pages
   cancel-in-progress: false
 
 jobs:
-  build:
+  build-and-publish:
+    # pnpm-workspace.yaml keeps only linux-x64 binaries, so this must be Ubuntu.
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v7
 
@@ -28,8 +31,6 @@ jobs:
         with:
           node-version: 24
           cache: pnpm
-
-      - uses: actions/configure-pages@v6
 
       - name: Work out the Pages base path
         id: base
@@ -50,23 +51,24 @@ jobs:
           BASE_PATH: ${{ steps.base.outputs.path }}
         run: pnpm --filter @workspace/volcanic-ash-anatomy run build
 
-      - name: Add a 404 fallback so deep links resolve
-        # Mirrors the `/* -> /index.html` rewrite in artifact.toml, since
-        # GitHub Pages has no rewrite rules of its own.
+      - name: Publish the build to the gh-pages branch
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           dist=artifacts/volcanic-ash-anatomy/dist/public
+
+          # Pages has no rewrite rules, so serve index.html for unknown paths.
           cp "$dist/index.html" "$dist/404.html"
+          # Stop Pages running the output through Jekyll, which would drop any
+          # file or directory whose name begins with an underscore.
+          touch "$dist/.nojekyll"
 
-      - uses: actions/upload-pages-artifact@v5
-        with:
-          path: artifacts/volcanic-ash-anatomy/dist/public
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v5
+          cd "$dist"
+          git init -q
+          git checkout -q -b gh-pages
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -q -m "Deploy $GITHUB_SHA"
+          # The branch holds build output only, so each deploy replaces it.
+          git push -f "https://x-access-token:$TOKEN@github.com/$GITHUB_REPOSITORY.git" gh-pages

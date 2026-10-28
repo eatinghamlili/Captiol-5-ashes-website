@@ -35,18 +35,20 @@ these come from `.replit-artifact/artifact.toml`.
 
 - **`.github/workflows/ci.yml`** — typechecks and builds every package on each
   push and pull request.
-- **`.github/workflows/deploy-pages.yml`** — builds the site and publishes it to
-  GitHub Pages on every push to `main`.
+- **`.github/workflows/deploy-pages.yml`** — builds the site and force-pushes it to
+  the `gh-pages` branch on every push to `main`.
 
-To turn Pages on: **Settings → Pages → Build and deployment → Source: GitHub
-Actions**. The workflow derives the correct `BASE_PATH` from the repo name, so
-assets resolve whether the site is served from `/<repo>/` or a custom domain.
+To serve that branch: **Settings → Pages → Build and deployment →
+Source: Deploy from a branch**, then choose `gh-pages` and `/ (root)`.
 
-This is a one-time manual step and the workflow cannot do it for you.
-`actions/configure-pages` accepts an `enablement` parameter, but creating a
-Pages site needs admin scope that `GITHUB_TOKEN` is never granted, so it fails
-with "Resource not accessible by integration". Until Pages is switched on, the
-deploy fails at `configure-pages` with "Get Pages site failed".
+`BASE_PATH` is derived from the repo name at build time, so assets resolve
+whether the site is served from `/<repo>/` or a custom domain.
+
+Publishing this way needs only `contents: write`. The Pages-native actions were
+tried first and cannot work here: `actions/configure-pages` fails with "Get
+Pages site failed" until Pages is enabled, and its `enablement` parameter
+cannot enable it either, because creating a Pages site requires admin scope
+that `GITHUB_TOKEN` is never granted.
 
 Only the static site is deployed to Pages. The API server and Postgres can't run
 there — keep those on Replit (or another host) if you start using them.
