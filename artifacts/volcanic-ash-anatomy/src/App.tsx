@@ -326,14 +326,25 @@ function App() {
 
   return (
     <main className="page-grain min-h-[100dvh] overflow-hidden bg-[#f3efe5] text-[#25343a]">
-      <header className="relative z-20 mx-auto flex max-w-[1320px] flex-col-reverse gap-6 px-6 py-5 md:flex-row md:items-start md:justify-between md:px-10">
-        <div className="flex items-center gap-3 text-xs text-[#77766e]">
-          <span className="h-2 w-2 rounded-full bg-[#a75239]" />
-          A student field guide
+      <header className="relative z-20 mx-auto flex max-w-[1320px] flex-col-reverse gap-5 px-6 pt-4 md:flex-row md:items-start md:justify-between md:px-10 md:pt-6">
+        <div className="flex items-center gap-3 pt-1 text-xs text-[#a75239]">
+          <span className="h-px w-8 bg-[#a75239]" /> Science project
         </div>
 
-        <div className="flex flex-col items-start gap-4 md:items-end">
-          <a href="#top" className="flex items-center gap-3" aria-label="the other cavaliers, back to the top">
+        <div className="flex flex-col items-start gap-3 md:flex-row md:items-start md:gap-4">
+          <div className="order-2 max-w-[20rem] rounded-sm border border-[#d7cbb9] bg-[#f7f3eb] px-4 py-3 text-left md:order-1">
+            <div className="text-xs font-semibold text-[#a75239]">How to read this page</div>
+            <p className="mt-1.5 text-xs leading-5 text-[#59656a]">
+              Hover a part of the diagram, or any card, and its details appear. On a touchscreen — or to read it all at
+              once — use the button.
+            </p>
+            <RevealToggle open={revealAll} onToggle={toggleReveal} className="mt-2.5" />
+          </div>
+          <a
+            href="#top"
+            className="order-1 flex shrink-0 items-center gap-3 md:order-2"
+            aria-label="the other cavaliers, back to the top"
+          >
             <span className="text-[13px] font-semibold">the other cavaliers</span>
             <img
               src={`${import.meta.env.BASE_URL}the-other-cavaliers.png`}
@@ -341,23 +352,12 @@ function App() {
               className="h-12 w-12 rounded-full border border-[#cbbba4] object-cover object-[50%_26%]"
             />
           </a>
-          <div className="max-w-[23rem] rounded-sm border border-[#d7cbb9] bg-[#f7f3eb] px-4 py-3.5 text-left">
-            <div className="text-xs font-semibold text-[#a75239]">How to read this page</div>
-            <p className="mt-1.5 text-xs leading-5 text-[#59656a]">
-              Hover over a part of the diagram, or over any card below, and its details appear. Nothing is missing — it
-              just waits until you point at it. On a touchscreen, or to read the lot at once, use the button.
-            </p>
-            <RevealToggle open={revealAll} onToggle={toggleReveal} className="mt-3" />
-          </div>
         </div>
       </header>
 
-      <section id="top" className="relative mx-auto max-w-[1320px] px-6 pb-12 pt-8 md:px-10 md:pb-20 md:pt-14">
+      <section id="top" className="relative mx-auto max-w-[1320px] px-6 pb-12 pt-2 md:px-10 md:pb-20 md:pt-4">
         <div className="relative max-w-[850px] rise-in">
-          <div className="mb-6 flex items-center gap-3 text-xs text-[#a75239]">
-            <span className="h-px w-8 bg-[#a75239]" /> Science project
-          </div>
-          <h1 className="serif max-w-[800px] text-[clamp(3.1rem,8vw,7.3rem)] leading-[.91] tracking-[-.055em]">
+          <h1 className="serif max-w-[800px] text-[clamp(3rem,7.6vw,6.9rem)] font-medium leading-[.95] tracking-[-.03em]">
             What volcanic ash<br className="hidden sm:block" /> does to your lungs
           </h1>
           <div className="mt-8 grid max-w-[760px] gap-5 sm:grid-cols-[1fr_230px] sm:items-end">
@@ -372,7 +372,7 @@ function App() {
             </div>
           </div>
         </div>
-        <div className="mt-12 flex flex-wrap items-center gap-3 text-xs text-[#77766e] md:mt-16">
+        <div className="mt-9 flex flex-wrap items-center gap-3 text-xs text-[#77766e] md:mt-11">
           <Wind size={15} strokeWidth={1.5} /> Trace the route <span className="h-px w-12 bg-[#cbbba4]" /> 4 stops
           <a href="#explore" className="ml-2 flex items-center gap-1.5 font-semibold text-[#25343a] hover:text-[#a75239]">
             Start at the nose <ArrowDown size={13} />
@@ -639,7 +639,10 @@ function App() {
             <img src={`${import.meta.env.BASE_URL}the-other-cavaliers.png`} alt="" className="h-8 w-8 rounded-full object-cover object-[50%_26%]" />
             <span className="font-semibold text-[#25343a]">the other cavaliers</span>
             <span className="hidden h-4 w-px bg-[#cbbba4] sm:block" />
-            <span>Student science project</span>
+            <span className="flex items-center gap-2">
+              <span className="h-2 w-2 rounded-full bg-[#a75239]" />
+              A student field guide
+            </span>
           </div>
           <span className="text-xs">An educational page, not medical advice.</span>
         </div>
