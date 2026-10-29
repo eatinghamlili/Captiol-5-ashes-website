@@ -328,10 +328,10 @@ function App() {
     <main className="page-grain min-h-[100dvh] overflow-hidden bg-[#f3efe5] text-[#25343a]">
       <header className="relative z-20 mx-auto flex max-w-[1320px] flex-col-reverse gap-5 px-6 pt-4 md:flex-row md:items-start md:justify-between md:px-10 md:pt-6">
         <div className="flex items-center gap-3 pt-1 text-xs text-[#a75239]">
-          <span className="h-px w-8 bg-[#a75239]" /> Science project
+          <span className="h-px w-8 bg-[#a75239]" /> English project — Ms Lee
         </div>
 
-        <div className="flex flex-col items-start gap-3 md:flex-row md:items-start md:gap-4">
+        <div className="flex flex-col items-start gap-3 md:flex-row md:items-start md:gap-4 md:pt-6">
           <div className="order-2 max-w-[20rem] rounded-sm border border-[#d7cbb9] bg-[#f7f3eb] px-4 py-3 text-left md:order-1">
             <div className="text-xs font-semibold text-[#a75239]">How to read this page</div>
             <p className="mt-1.5 text-xs leading-5 text-[#59656a]">
