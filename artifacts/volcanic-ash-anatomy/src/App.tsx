@@ -76,8 +76,11 @@ const riskFactors = [
   },
 ];
 
-const nervous = [
+type NerveId = 'sympathetic' | 'prefrontal' | 'stem' | 'hypothalamus';
+
+const nervous: { id: NerveId; eyebrow: string; title: string; teaser: string; role: string; effect: string }[] = [
   {
+    id: 'sympathetic',
     eyebrow: 'Fight or flight',
     title: 'Sympathetic nervous system',
     teaser: 'Mobilises the body when a situation turns dangerous.',
@@ -85,6 +88,7 @@ const nervous = [
     effect: 'Both of those changes help you run — and both mean you pull more ash into your lungs while you do it.',
   },
   {
+    id: 'prefrontal',
     eyebrow: 'Clear thinking',
     title: 'Prefrontal cortex',
     teaser: 'Handles higher-level thinking and logical decisions.',
@@ -92,6 +96,7 @@ const nervous = [
     effect: 'Under high panic it receives less oxygen, so people turn less rational exactly when clear thinking matters most. Knowing the plan beforehand beats working it out in the moment.',
   },
   {
+    id: 'stem',
     eyebrow: 'Automatic',
     title: 'Brain stem',
     teaser: 'Runs the involuntary necessities — breathing above all.',
@@ -99,6 +104,7 @@ const nervous = [
     effect: 'You cannot simply decide to breathe less of the air around you, which is why keeping ash out of that air matters more than anything you try to do with your lungs.',
   },
   {
+    id: 'hypothalamus',
     eyebrow: 'The signal',
     title: 'Hypothalamus',
     teaser: 'Releases the hormones that tell the body to act.',
@@ -152,21 +158,134 @@ function AnatomyIllustration({ selected, onSelect }: { selected: PartId; onSelec
   );
 }
 
+const nerveCallouts: Record<NerveId, string> = {
+  prefrontal: 'Less oxygen, less logic',
+  hypothalamus: 'Sends the alarm out',
+  stem: 'Breathing carries on',
+  sympathetic: 'Heart up, airways open',
+};
+
+const nerveShort: Record<NerveId, string> = {
+  prefrontal: 'Prefrontal cortex',
+  hypothalamus: 'Hypothalamus',
+  stem: 'Brain stem',
+  sympathetic: 'Sympathetic nerves',
+};
+
+function NervousIllustration({ active, onHover }: { active: NerveId | null; onHover: (id: NerveId) => void }) {
+  const region = (id: NerveId) => `nerve-region${active === id ? ' is-active' : ''}`;
+
+  return (
+    <div className="w-full max-w-[410px]">
+      <div className="diagram-paper">
+        <div className="anatomy-figure">
+          <svg
+            viewBox="0 0 460 560"
+            className="block h-auto w-full"
+            role="img"
+            aria-label="Cutaway side view of a head with the brain inside. The prefrontal cortex, hypothalamus and brain stem are marked, and a sympathetic nerve runs down the neck to an inset showing the heart and the airways."
+          >
+            <g className="nerve-skin">
+              <path d="M248 50C190 50 142 76 126 112C116 134 112 158 110 180C109 190 106 194 100 200C92 210 80 232 74 244C70 252 74 258 84 259C94 260 100 264 100 272C100 282 96 288 100 294C104 302 102 310 110 318C120 330 132 344 152 354C168 362 182 368 190 380L194 560" />
+              <path d="M248 50C288 50 322 70 350 100C384 136 390 196 382 252C376 300 356 330 336 364C328 388 324 420 324 560" />
+            </g>
+
+            <path className={region('prefrontal')} d="M138 198C124 176 122 148 134 126C146 106 166 92 190 86C194 85 197 84 200 82C190 120 186 162 190 228L182 228C158 228 146 212 138 198Z" />
+            <path className={region('stem')} d="M250 228C248 250 252 272 258 292C263 308 266 326 266 346L291 346C291 324 288 304 283 288C278 268 274 248 276 228Z" />
+            <ellipse className={region('hypothalamus')} cx="222" cy="214" rx="15" ry="9" />
+
+            <rect x="22" y="330" width="158" height="172" rx="2" fill="#f3efe5" stroke="#b2b2b2" strokeWidth="1.4" />
+
+            <g className="nerve-line">
+              <path d="M138 198C124 176 122 148 134 126C146 106 166 92 190 86C214 80 240 77 264 79C298 82 328 96 346 118C362 138 364 164 354 186C346 204 328 216 306 221C284 226 258 228 236 228L182 228C158 228 146 212 138 198Z" />
+              <path d="M298 228C328 224 354 234 360 252C366 270 348 286 320 286C298 286 284 276 280 260C277 246 286 232 298 228Z" />
+              <ellipse cx="222" cy="214" rx="15" ry="9" />
+              <path d="M250 228C248 250 252 272 258 292C263 308 266 326 266 346" />
+              <path d="M276 228C274 248 278 268 283 288C288 304 291 324 291 346" />
+              <path d="M266 346L268 560" />
+              <path d="M291 346L293 560" />
+              <path d="M101 362C95 350 77 351 75 365C73 378 87 388 101 397C115 388 129 378 127 365C125 351 107 350 101 362Z" />
+              <path d="M101 418L101 446" />
+              <path d="M101 446C88 452 76 464 71 480" />
+              <path d="M101 446C114 452 126 464 131 480" />
+            </g>
+
+            <g className="nerve-line nerve-line--thin">
+              <path d="M152 132C174 114 192 132 214 116" />
+              <path d="M144 168C168 152 186 172 212 156" />
+              <path d="M162 204C184 190 202 208 228 196" />
+              <path d="M240 96C262 84 278 102 302 92" />
+              <path d="M256 136C280 120 298 140 324 128" />
+              <path d="M266 182C290 168 308 186 332 176" />
+              <path d="M294 238C318 242 340 252 352 266" />
+              <path d="M288 256C310 260 328 268 340 280" />
+              <path d="M94 424L108 424" />
+              <path d="M94 432L108 432" />
+              <path strokeDasharray="4 5" d="M200 82C190 120 186 162 190 228" />
+            </g>
+
+            <g className={`nerve-sym${active === 'sympathetic' ? ' is-active' : ''}`}>
+              <path d="M252 352C240 382 236 412 238 444C240 476 244 510 248 560" />
+              <path d="M237 410C214 398 196 392 180 392" />
+              <path d="M180 392C164 386 146 378 132 372" />
+              <path d="M180 392C162 400 142 418 122 436" />
+              <circle cx="132" cy="372" r="4" />
+              <circle cx="122" cy="436" r="4" />
+            </g>
+          </svg>
+
+          <svg className="diagram-callout-lines nerve-leaders" viewBox="0 0 460 560" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M164 140C148 118 126 96 104 78" />
+            <circle cx="164" cy="140" r="4" />
+            <path d="M236 212C254 178 272 118 288 70" />
+            <circle cx="236" cy="212" r="4" />
+            <path d="M288 330C300 340 308 345 316 350" />
+            <circle cx="288" cy="330" r="4" />
+          </svg>
+
+          {(Object.keys(nerveShort) as NerveId[]).map((id) => (
+            <button
+              key={id}
+              type="button"
+              className={`anatomy-hotspot nerve-hotspot--${id} ${active === id ? 'is-selected' : ''}`}
+              aria-label={`Show ${nerveShort[id]}`}
+              aria-pressed={active === id}
+              onMouseEnter={() => onHover(id)}
+              onFocus={() => onHover(id)}
+              onClick={() => onHover(id)}
+            />
+          ))}
+
+          {(Object.keys(nerveShort) as NerveId[]).map((id) => (
+            <div key={id} className={`diagram-callout nerve-callout--${id}`}>
+              <strong>{nerveShort[id]}</strong>
+              <span> · {nerveCallouts[id]}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+      <p className="diagram-caption">Drawn for this page. Simplified, and not to scale.</p>
+    </div>
+  );
+}
+
 function Reveal({
   open,
   eyebrow,
   title,
   teaser,
+  onMouseEnter,
   children,
 }: {
   open: boolean;
   eyebrow: string;
   title: string;
   teaser?: string;
+  onMouseEnter?: () => void;
   children: React.ReactNode;
 }) {
   return (
-    <article className={`reveal ${open ? 'is-open' : ''}`} tabIndex={0}>
+    <article className={`reveal ${open ? 'is-open' : ''}`} tabIndex={0} onMouseEnter={onMouseEnter} onFocus={onMouseEnter}>
       <div className="flex items-start justify-between gap-4">
         <div>
           <div className="text-xs font-semibold text-[#a75239]">{eyebrow}</div>
@@ -201,6 +320,7 @@ function RevealToggle({ open, onToggle, className = '' }: { open: boolean; onTog
 function App() {
   const [selected, setSelected] = useState<PartId>('nose');
   const [revealAll, setRevealAll] = useState(false);
+  const [nerve, setNerve] = useState<NerveId | null>(null);
   const current = parts[selected];
   const toggleReveal = () => setRevealAll((value) => !value);
 
@@ -435,22 +555,38 @@ function App() {
           <h2 className="serif mt-2 text-2xl md:text-3xl">Panic makes it worse</h2>
           <p className="mt-2 max-w-[640px] text-sm leading-6 text-[#59656a]">
             An eruption is frightening, and fear changes the body before anyone has decided anything. The nervous system
-            is built to get you out of danger fast — which, in falling ash, works against your lungs.
+            is built to get you out of danger fast — which, in falling ash, works against your lungs. Hover a part of
+            the diagram, or a card beside it, and the two light up together.
           </p>
         </div>
-        <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-          {nervous.map((item) => (
-            <Reveal key={item.title} open={revealAll} eyebrow={item.eyebrow} title={item.title} teaser={item.teaser}>
-              <div className="space-y-3 text-[13px] leading-5 text-[#59656a]">
-                <p>
-                  <span className="font-semibold text-[#587266]">Its job:</span> {item.role}
-                </p>
-                <p className="border-t border-[#d7cbb9] pt-3">
-                  <span className="font-semibold text-[#a75239]">In an ashfall:</span> {item.effect}
-                </p>
-              </div>
-            </Reveal>
-          ))}
+        <div
+          className="mt-5 grid items-start gap-6 lg:grid-cols-[minmax(0,.95fr)_minmax(0,1.05fr)]"
+          onMouseLeave={() => setNerve(null)}
+        >
+          <div className="flex justify-center">
+            <NervousIllustration active={nerve} onHover={setNerve} />
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {nervous.map((item) => (
+              <Reveal
+                key={item.id}
+                open={revealAll || nerve === item.id}
+                eyebrow={item.eyebrow}
+                title={item.title}
+                teaser={item.teaser}
+                onMouseEnter={() => setNerve(item.id)}
+              >
+                <div className="space-y-3 text-[13px] leading-5 text-[#59656a]">
+                  <p>
+                    <span className="font-semibold text-[#587266]">Its job:</span> {item.role}
+                  </p>
+                  <p className="border-t border-[#d7cbb9] pt-3">
+                    <span className="font-semibold text-[#a75239]">In an ashfall:</span> {item.effect}
+                  </p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 

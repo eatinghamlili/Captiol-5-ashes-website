@@ -382,6 +382,26 @@ body { background: #f3efe5; }
 .diagram-callout--airways { left: 48%; top: 43.5%; max-width: 47%; }
 .diagram-callout--lungs { left: 42%; top: 76.5%; max-width: 55%; }
 .diagram-caption { margin-top: .5rem; color: #77766e; font-size: .65rem; line-height: 1.25rem; text-align: center; }
+.nerve-region { fill: transparent; transition: fill .3s ease; }
+.nerve-region.is-active { fill: rgba(167,82,57,.22); }
+.nerve-line { fill: none; stroke: #4e5f65; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.nerve-line--thin { stroke-width: 1.4; opacity: .62; }
+.nerve-skin { fill: none; stroke: #9c8f7c; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.nerve-sym { color: #c08a72; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; transition: color .3s ease, stroke-width .3s ease; }
+.nerve-sym circle { fill: currentColor; stroke: none; }
+.nerve-sym.is-active { color: #a75239; stroke-width: 3.4; }
+.nerve-hotspot--prefrontal { z-index: 10; left: 29%; top: 14%; width: 15%; height: 27%; }
+.nerve-hotspot--stem { z-index: 12; left: 54%; top: 40%; width: 11%; height: 22%; }
+.nerve-hotspot--hypothalamus { z-index: 13; left: 44%; top: 35%; width: 9%; height: 7%; }
+.nerve-hotspot--sympathetic { z-index: 9; left: 5%; top: 59%; width: 52%; height: 38%; }
+.nerve-leaders path { stroke-width: 1.6; }
+[class*="nerve-hotspot--"]:hover, [class*="nerve-hotspot--"]:focus-visible, [class*="nerve-hotspot--"].is-selected { border-color: transparent; background: transparent; box-shadow: none; }
+[class*="nerve-hotspot--"]:focus-visible { outline: 2px solid #a75239; outline-offset: 1px; }
+[class*="nerve-callout--"] { white-space: normal; }
+.nerve-callout--prefrontal { left: 1%; top: 2%; max-width: 50%; }
+.nerve-callout--hypothalamus { left: 56%; top: 4%; max-width: 43%; }
+.nerve-callout--stem { left: 66%; top: 63%; max-width: 33%; }
+.nerve-callout--sympathetic { left: 3%; top: 51%; max-width: 44%; }
 .reveal { position: relative; padding: 1.25rem; border: 1px solid #d7cbb9; border-radius: 2px; background: #f7f3eb; transition: border-color .25s ease, box-shadow .25s ease; }
 .reveal:hover, .reveal:focus-within, .reveal.is-open { border-color: rgba(167,82,57,.5); box-shadow: 0 16px 38px -28px rgba(65,50,37,.5); }
 .reveal:focus-visible { outline: 2px solid #a75239; outline-offset: 2px; }
