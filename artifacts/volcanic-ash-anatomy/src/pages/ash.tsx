@@ -311,7 +311,7 @@ export function AshPage() {
 
       <section id="top" className="relative mx-auto max-w-[1320px] px-6 pb-12 pt-2 md:px-10 md:pb-20 md:pt-4">
         <div className="relative max-w-[850px] rise-in">
-          <h1 className="serif max-w-[800px] text-[clamp(3rem,7.6vw,6.9rem)] font-medium leading-[.95] tracking-[-.03em]">
+          <h1 className="serif max-w-[800px] text-[clamp(3rem,7.6vw,6.9rem)] font-medium leading-[.95] tracking-[-.01em]">
             What volcanic ash<br className="hidden sm:block" /> does to your lungs
           </h1>
           <div className="mt-8 grid max-w-[760px] gap-5 sm:grid-cols-[1fr_230px] sm:items-end">

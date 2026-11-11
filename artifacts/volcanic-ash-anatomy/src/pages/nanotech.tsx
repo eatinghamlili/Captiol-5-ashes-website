@@ -412,7 +412,7 @@ export function NanotechPage() {
           <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#cbbba4] px-3 py-1 text-[11px] text-[#59656a]">
             <span className="h-1.5 w-1.5 rounded-full bg-[#3b7f84]" /> A fictional scenario
           </div>
-          <h1 className="serif max-w-[800px] text-[clamp(3rem,7.6vw,6.9rem)] font-medium leading-[.95] tracking-[-.03em]">
+          <h1 className="serif max-w-[800px] text-[clamp(3rem,7.6vw,6.9rem)] font-medium leading-[.95] tracking-[-.01em]">
             When the cure<br className="hidden sm:block" /> won’t switch off
           </h1>
           <div className="mt-8 grid max-w-[760px] gap-5 sm:grid-cols-[1fr_230px] sm:items-end">
