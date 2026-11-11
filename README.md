@@ -1,7 +1,16 @@
 # Volcanic Ash & the Respiratory System
 
-An educational microsite by *the other cavaliers* showing respiratory anatomy and
-how volcanic ash can affect breathing, with interactive anatomical hotspots.
+An educational microsite by *the other cavaliers* with two interactive pages,
+switched from the bar at the top:
+
+- **01 Volcanic ash** (`/`) — respiratory anatomy and how volcanic ash affects
+  breathing, with interactive anatomical hotspots.
+- **02 Nanotech malfunction** (`/?page=nanotech`) — a fictional scenario in which
+  medical nanobots malfunction inside patients and the emergency shutdown signal
+  fails. Hover the full-body diagram to see what goes wrong in each organ and how
+  doctors monitor and protect patients.
+
+Each page lives in `artifacts/volcanic-ash-anatomy/src/pages/`.
 
 This is a pnpm workspace that runs **both on Replit and on GitHub** — neither
 setup replaces the other.
