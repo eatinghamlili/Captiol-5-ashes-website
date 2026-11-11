@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { AlertTriangle, ArrowDown, ArrowUpRight, Check, ChevronRight, Wind } from 'lucide-react';
+import { AlertTriangle, ArrowDown, Check, ChevronRight, Wind } from 'lucide-react';
 
 import { Reveal, RevealToggle } from '@/components/reveal';
 
@@ -196,7 +196,7 @@ function NervousIllustration({ active, onHover }: { active: NerveId | null; onHo
             <path className={region('stem')} d="M250 228C248 250 252 272 258 292C263 308 266 326 266 346L291 346C291 324 288 304 283 288C278 268 274 248 276 228Z" />
             <ellipse className={region('hypothalamus')} cx="222" cy="214" rx="15" ry="9" />
 
-            <rect x="22" y="330" width="158" height="172" rx="2" fill="#f3efe5" stroke="#b2b2b2" strokeWidth="1.4" />
+            <rect x="22" y="330" width="158" height="172" rx="2" fill="#f3f8fd" stroke="#b2b2b2" strokeWidth="1.4" />
 
             <g className="nerve-line">
               <path d="M138 198C124 176 122 148 134 126C146 106 166 92 190 86C214 80 240 77 264 79C298 82 328 96 346 118C362 138 364 164 354 186C346 204 328 216 306 221C284 226 258 228 236 228L182 228C158 228 146 212 138 198Z" />
@@ -279,74 +279,67 @@ export function AshPage() {
   const toggleReveal = () => setRevealAll((value) => !value);
 
   return (
-    <main className="page-grain min-h-[100dvh] overflow-hidden bg-[#f3efe5] text-[#25343a]">
-      <header className="relative z-20 mx-auto flex max-w-[1320px] flex-col-reverse gap-5 px-6 pt-4 md:flex-row md:items-start md:justify-between md:px-10 md:pt-6">
-        <div className="flex items-center gap-3 pt-1 text-xs text-[#a75239]">
-          <span className="h-px w-8 bg-[#a75239]" /> English project — Ms Lee
-        </div>
-
-        <div className="flex flex-col items-start gap-3 md:flex-row md:items-start md:gap-4 md:pt-6">
-          <div className="order-2 max-w-[20rem] rounded-sm border border-[#d7cbb9] bg-[#f7f3eb] px-4 py-3 text-left md:order-1">
-            <div className="text-xs font-semibold text-[#a75239]">How to read this page</div>
-            <p className="mt-1.5 text-xs leading-5 text-[#59656a]">
-              Hover a part of the diagram, or any card, and its details appear. On a touchscreen — or to read it all at
-              once — use the button.
-            </p>
-            <RevealToggle open={revealAll} onToggle={toggleReveal} className="mt-2.5" />
-          </div>
-          <a
-            href="#top"
-            className="order-1 flex shrink-0 items-center gap-3 md:order-2"
-            aria-label="the other cavaliers, back to the top"
-          >
-            <span className="text-[13px] font-semibold">the other cavaliers</span>
-            <img
-              src={`${import.meta.env.BASE_URL}the-other-cavaliers.png`}
-              alt="the other cavaliers group"
-              className="h-12 w-12 rounded-full border border-[#cbbba4] object-cover object-[50%_26%]"
-            />
-          </a>
-        </div>
+    <main className="min-h-[100dvh] overflow-hidden bg-[#f3f8fd] text-[#16324f]">
+      <header className="mx-auto flex max-w-[1180px] flex-wrap items-center justify-between gap-3 px-6 pt-5 md:px-10">
+        <a href="#top" className="flex items-center gap-3" aria-label="the other cavaliers, back to the top">
+          <img
+            src={`${import.meta.env.BASE_URL}the-other-cavaliers.png`}
+            alt="the other cavaliers group"
+            className="h-11 w-11 rounded-full border-2 border-white object-cover object-[50%_26%] shadow-[0_1px_4px_rgba(22,50,79,.25)]"
+          />
+          <span className="heading text-[15px]">the other cavaliers</span>
+        </a>
+        <span className="text-sm text-[#3f5873]">English project — Ms Lee</span>
       </header>
 
-      <section id="top" className="relative mx-auto max-w-[1320px] px-6 pb-12 pt-2 md:px-10 md:pb-20 md:pt-4">
-        <div className="relative max-w-[850px] rise-in">
-          <h1 className="serif max-w-[800px] text-[clamp(3rem,7.6vw,6.9rem)] font-medium leading-[.95] tracking-[-.01em]">
-            What volcanic ash<br className="hidden sm:block" /> does to your lungs
-          </h1>
-          <div className="mt-8 grid max-w-[760px] gap-5 sm:grid-cols-[1fr_230px] sm:items-end">
-            <p className="max-w-[520px] text-[15px] leading-7 text-[#59656a] md:text-[17px]">
+      <section id="top" className="mx-auto max-w-[1180px] px-4 pb-10 pt-5 md:px-10 md:pb-14">
+        <div className="grid gap-6 rounded-2xl bg-[#d6e8f7] px-6 py-9 md:px-10 md:py-12 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-end lg:gap-10">
+          <div>
+            <h1 className="heading text-[clamp(2.3rem,5vw,3.75rem)] font-bold leading-[1.06]">
+              What volcanic ash<br className="hidden sm:block" /> does to your lungs
+            </h1>
+            <p className="mt-5 max-w-[62ch] text-[17px] leading-7 text-[#2c4258]">
               Volcanic ash is not soft dust. It is made of microscopic, jagged shards of fractured rock, glass and
               minerals — hard enough to scratch, and light enough for the wind to carry a long way. That is also how it
               ends up in the air people are breathing.
             </p>
-            <div className="border-l border-[#cbbba4] pl-4 text-xs leading-5 text-[#77766e]">
+            <p className="mt-3 max-w-[62ch] text-[15px] leading-6 text-[#3f5873]">
               This page follows that air from the nose down to the air sacs deep in the lungs, where oxygen crosses into
               the blood.
+            </p>
+            <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3">
+              <a
+                href="#explore"
+                className="inline-flex items-center gap-2 rounded-lg bg-[#2563a8] px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#1d4f88]"
+              >
+                Start at the nose <ArrowDown size={15} />
+              </a>
+              <span className="flex items-center gap-2 text-sm text-[#3f5873]">
+                <Wind size={16} strokeWidth={1.75} /> Trace the route · 4 stops
+              </span>
             </div>
           </div>
-        </div>
-        <div className="mt-9 flex flex-wrap items-center gap-3 text-xs text-[#77766e] md:mt-11">
-          <Wind size={15} strokeWidth={1.5} /> Trace the route <span className="h-px w-12 bg-[#cbbba4]" /> 4 stops
-          <a href="#explore" className="ml-2 flex items-center gap-1.5 font-semibold text-[#25343a] hover:text-[#a75239]">
-            Start at the nose <ArrowDown size={13} />
-          </a>
+          <div className="rounded-xl bg-white p-5">
+            <div className="heading text-base">How to read this page</div>
+            <p className="mt-1.5 text-sm leading-6 text-[#3f5873]">
+              Hover a part of the diagram, or any card, and its details appear. On a touchscreen — or to read it all at
+              once — use the button.
+            </p>
+            <RevealToggle open={revealAll} onToggle={toggleReveal} className="mt-3" />
+          </div>
         </div>
       </section>
 
-      <section id="explore" className="mx-auto max-w-[1320px] px-4 pb-16 md:px-10 md:pb-24">
-        <div className="overflow-hidden rounded-[5px] border border-[#d7cbb9] bg-[#eae3d6] shadow-[0_24px_65px_-42px_rgba(65,50,37,.38)]">
-          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#d5c8b5] px-5 py-4 md:px-8">
-            <div className="flex items-center gap-3">
-              <span className="text-xs font-semibold text-[#a75239]">Fig. 01</span>
-              <h2 className="serif text-xl md:text-2xl">How a breath travels</h2>
-            </div>
-            <p className="text-xs text-[#77766e]">Hover over a part of the diagram</p>
+      <section id="explore" className="mx-auto max-w-[1180px] px-4 pb-16 md:px-10 md:pb-24">
+        <div className="overflow-hidden rounded-2xl border border-[#c9dbec] bg-white">
+          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#c9dbec] px-5 py-4 md:px-8">
+            <h2 className="heading text-xl md:text-2xl">Figure 1: How a breath travels</h2>
+            <p className="text-xs text-[#5b7189]">Hover over a part of the diagram</p>
           </div>
           <div className="grid min-h-[590px] lg:grid-cols-[minmax(0,1.15fr)_minmax(330px,.85fr)]">
-            <div className="relative flex min-h-[470px] flex-col items-center justify-center overflow-hidden border-b border-[#d5c8b5] px-5 py-8 lg:border-b-0 lg:border-r lg:px-8">
-              <div className="pointer-events-none absolute left-5 top-5 text-xs text-[#a49a89]">Upper torso / anterior view</div>
-              <div className="absolute bottom-9 left-8 h-px w-[calc(100%-4rem)] bg-[#d4c7b4]" />
+            <div className="relative flex min-h-[470px] flex-col items-center justify-center overflow-hidden border-b border-[#c9dbec] px-5 py-8 lg:border-b-0 lg:border-r lg:px-8">
+              <div className="pointer-events-none absolute left-5 top-5 text-xs text-[#6f86a0]">Upper torso / anterior view</div>
+              <div className="absolute bottom-9 left-8 h-px w-[calc(100%-4rem)] bg-[#c9dbec]" />
               <AnatomyIllustration selected={selected} onSelect={setSelected} />
               <div className="relative z-10 mt-[-3px] flex flex-wrap justify-center gap-2">
                 {(Object.keys(parts) as PartId[]).map((id) => (
@@ -354,7 +347,7 @@ export function AshPage() {
                     key={id}
                     onMouseEnter={() => setSelected(id)}
                     onClick={() => setSelected(id)}
-                    className={`rounded-full border px-3 py-2 text-[11px] transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#a75239] ${selected === id ? 'border-[#a75239] bg-[#a75239] text-[#fff7ed]' : 'border-[#c7baa6] bg-[#f3ede2] text-[#536066] hover:border-[#a75239]'}`}
+                    className={`rounded-full border px-3 py-2 text-[11px] transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2563a8] ${selected === id ? 'border-[#2563a8] bg-[#2563a8] text-[#ffffff]' : 'border-[#a9c4de] bg-[#e7f0f9] text-[#3a5470] hover:border-[#2563a8]'}`}
                   >
                     {parts[id].short}
                   </button>
@@ -364,48 +357,44 @@ export function AshPage() {
             <article aria-live="polite" className="flex flex-col px-6 py-8 md:px-10 md:py-10">
               <div className="flex items-start justify-between">
                 <div>
-                  <div className="mb-3 text-xs font-semibold text-[#a75239]">Stop {current.number} / 04</div>
-                  <h3 className="serif text-3xl leading-tight md:text-[2.4rem]">{current.name}</h3>
-                  <p className="mt-2 text-sm text-[#77766e]">{current.subtitle}</p>
-                </div>
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#cbbba4] text-[#a75239]">
-                  <ArrowUpRight size={17} />
+                  <h3 className="heading text-3xl leading-tight md:text-[2.4rem]">{current.name}</h3>
+                  <p className="mt-2 text-sm text-[#5b7189]">Stop {Number(current.number)} of 4 · {current.subtitle}</p>
                 </div>
               </div>
-              <div className="my-7 h-px bg-[#d5c8b5]" />
+              <div className="my-7 h-px bg-[#c9dbec]" />
               <div className="space-y-6">
                 <div>
-                  <div className="mb-2 flex items-center gap-2 text-xs font-semibold text-[#587266]">
+                  <div className="mb-2 flex items-center gap-2 text-xs font-semibold text-[#2e7d5b]">
                     <Check size={13} /> In a normal breath
                   </div>
-                  <p className="text-[14px] leading-6 text-[#425157]">{current.role}</p>
+                  <p className="text-[14px] leading-6 text-[#2c4258]">{current.role}</p>
                 </div>
-                <div className="border-l-2 border-[#b56b4d] pl-4">
-                  <div className="mb-2 flex items-center gap-2 text-xs font-semibold text-[#a75239]">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#b56b4d]" /> With volcanic ash
+                <div className="rounded-xl bg-[#fff4e3] p-4">
+                  <div className="mb-2 flex items-center gap-2 text-xs font-semibold text-[#9a5410]">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#d9822b]" /> With volcanic ash
                   </div>
-                  <p className="text-[14px] leading-6 text-[#425157]">{current.ash}</p>
+                  <p className="text-[14px] leading-6 text-[#2c4258]">{current.ash}</p>
                 </div>
                 <div>
-                  <div className="mb-2 text-xs font-semibold text-[#587266]">What that feels like</div>
+                  <div className="mb-2 text-xs font-semibold text-[#2e7d5b]">What that feels like</div>
                   <ul className="flex flex-wrap gap-1.5">
                     {current.signs.map((sign) => (
-                      <li key={sign} className="rounded-full border border-[#d7cbb9] bg-[#f3ede2] px-2.5 py-1 text-[11px] text-[#536066]">
+                      <li key={sign} className="rounded-full border border-[#c9dbec] bg-[#e7f0f9] px-2.5 py-1 text-[11px] text-[#3a5470]">
                         {sign}
                       </li>
                     ))}
                   </ul>
                 </div>
                 {current.note ? (
-                  <p className="border-t border-[#d5c8b5] pt-4 text-[13px] leading-5 text-[#77766e]">
-                    <span className="font-semibold text-[#a75239]">Worth knowing:</span> {current.note}
+                  <p className="border-t border-[#c9dbec] pt-4 text-[13px] leading-5 text-[#5b7189]">
+                    <span className="font-semibold text-[#2563a8]">Worth knowing:</span> {current.note}
                   </p>
                 ) : null}
               </div>
               <div className="mt-auto pt-8">
                 <div className="mb-3 flex items-center justify-between">
-                  <span className="text-xs text-[#77766e]">Path through the body</span>
-                  <span className="text-xs text-[#a75239]">{current.number} — 04</span>
+                  <span className="text-xs text-[#5b7189]">Path through the body</span>
+                  <span className="text-xs text-[#2563a8]">{current.number} — 04</span>
                 </div>
                 <div className="flex gap-1.5">
                   {(Object.keys(parts) as PartId[]).map((id) => (
@@ -414,7 +403,7 @@ export function AshPage() {
                       aria-label={`Go to ${parts[id].name}`}
                       onMouseEnter={() => setSelected(id)}
                       onClick={() => setSelected(id)}
-                      className={`h-1.5 flex-1 rounded-full transition-colors ${selected === id ? 'bg-[#a75239]' : 'bg-[#d4c7b4] hover:bg-[#b7a58d]'}`}
+                      className={`h-1.5 flex-1 rounded-full transition-colors ${selected === id ? 'bg-[#2563a8]' : 'bg-[#c9dbec] hover:bg-[#8fb0d1]'}`}
                     />
                   ))}
                 </div>
@@ -427,7 +416,7 @@ export function AshPage() {
                           : (['nose', 'throat', 'airways', 'lungs'][(['nose', 'throat', 'airways', 'lungs'].indexOf(selected) - 1 + 4) % 4] as PartId),
                       )
                     }
-                    className="text-xs text-[#697277] hover:text-[#a75239]"
+                    className="text-xs text-[#4f6780] hover:text-[#2563a8]"
                   >
                     Previous
                   </button>
@@ -439,7 +428,7 @@ export function AshPage() {
                           : (['nose', 'throat', 'airways', 'lungs'][(['nose', 'throat', 'airways', 'lungs'].indexOf(selected) + 1) % 4] as PartId),
                       )
                     }
-                    className="flex items-center gap-1 text-xs font-semibold text-[#a75239] hover:gap-2"
+                    className="flex items-center gap-1 text-xs font-semibold text-[#2563a8] hover:gap-2"
                   >
                     Next stop <ChevronRight size={14} />
                   </button>
@@ -450,7 +439,7 @@ export function AshPage() {
         </div>
 
         <div className="mt-6 flex flex-wrap items-baseline justify-between gap-3">
-          <p className="text-xs text-[#77766e]">Four stops, in order. Hover a card for the anatomy behind it.</p>
+          <p className="text-xs text-[#5b7189]">Four stops, in order. Hover a card for the anatomy behind it.</p>
           <RevealToggle open={revealAll} onToggle={toggleReveal} />
         </div>
         <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
@@ -458,26 +447,26 @@ export function AshPage() {
             <Reveal
               key={id}
               open={revealAll}
-              eyebrow={`${parts[id].number} / ${parts[id].short}`}
+              eyebrow={`Stop ${Number(parts[id].number)}`}
               title={parts[id].name}
               teaser={parts[id].subtitle}
             >
-              <div className="space-y-3 text-[13px] leading-5 text-[#59656a]">
+              <div className="space-y-3 text-[13px] leading-5 text-[#3f5873]">
                 <p>
-                  <span className="font-semibold text-[#587266]">Normally:</span> {parts[id].role}
+                  <span className="font-semibold text-[#2e7d5b]">Normally:</span> {parts[id].role}
                 </p>
                 <p>
-                  <span className="font-semibold text-[#a75239]">With ash:</span> {parts[id].ash}
+                  <span className="font-semibold text-[#9a5410]">With ash:</span> {parts[id].ash}
                 </p>
                 <ul className="flex flex-wrap gap-1.5 pt-0.5">
                   {parts[id].signs.map((sign) => (
-                    <li key={sign} className="rounded-full border border-[#d7cbb9] bg-[#f3ede2] px-2.5 py-1 text-[11px] text-[#536066]">
+                    <li key={sign} className="rounded-full border border-[#c9dbec] bg-[#e7f0f9] px-2.5 py-1 text-[11px] text-[#3a5470]">
                       {sign}
                     </li>
                   ))}
                 </ul>
-                <p className="border-t border-[#d7cbb9] pt-3 text-[#425157]">
-                  <span className="font-semibold text-[#a75239]">Protect:</span> {protectTips[id]}
+                <p className="border-t border-[#c9dbec] pt-3 text-[#2c4258]">
+                  <span className="font-semibold text-[#2563a8]">Protect:</span> {protectTips[id]}
                 </p>
               </div>
             </Reveal>
@@ -485,12 +474,11 @@ export function AshPage() {
         </div>
       </section>
 
-      <section id="risk" className="mx-auto max-w-[1320px] px-6 pb-16 md:px-10 md:pb-24">
-        <div className="flex flex-wrap items-end justify-between gap-4 border-b border-[#d5c8b5] pb-5">
+      <section id="risk" className="mx-auto max-w-[1180px] px-6 pb-16 md:px-10 md:pb-24">
+        <div className="flex flex-wrap items-end justify-between gap-4 border-b border-[#c9dbec] pb-5">
           <div>
-            <span className="text-xs font-semibold text-[#a75239]">Fig. 02</span>
-            <h2 className="serif mt-2 text-2xl md:text-3xl">The same ash, different lungs</h2>
-            <p className="mt-2 max-w-[560px] text-sm leading-6 text-[#59656a]">
+            <h2 className="heading text-2xl md:text-3xl">Figure 2: The same ash, different lungs</h2>
+            <p className="mt-2 max-w-[560px] text-sm leading-6 text-[#3f5873]">
               How much harm an ashfall does depends as much on who is breathing it as on the ash itself.
             </p>
           </div>
@@ -499,15 +487,14 @@ export function AshPage() {
         <div className="mt-5 grid gap-3 sm:grid-cols-2">
           {riskFactors.map((item) => (
             <Reveal key={item.title} open={revealAll} eyebrow={item.eyebrow} title={item.title} teaser={item.teaser}>
-              <p className="text-[13px] leading-5 text-[#59656a]">{item.body}</p>
+              <p className="text-[13px] leading-5 text-[#3f5873]">{item.body}</p>
             </Reveal>
           ))}
         </div>
 
-        <div className="mt-14 border-b border-[#d5c8b5] pb-5">
-          <span className="text-xs font-semibold text-[#a75239]">Fig. 03</span>
-          <h2 className="serif mt-2 text-2xl md:text-3xl">Panic makes it worse</h2>
-          <p className="mt-2 max-w-[640px] text-sm leading-6 text-[#59656a]">
+        <div className="mt-14 border-b border-[#c9dbec] pb-5">
+          <h2 className="heading text-2xl md:text-3xl">Figure 3: Panic makes it worse</h2>
+          <p className="mt-2 max-w-[640px] text-sm leading-6 text-[#3f5873]">
             An eruption is frightening, and fear changes the body before anyone has decided anything. The nervous system
             is built to get you out of danger fast — which, in falling ash, works against your lungs. Hover a part of
             the diagram, or a card beside it, and the two light up together.
@@ -530,12 +517,12 @@ export function AshPage() {
                 teaser={item.teaser}
                 onMouseEnter={() => setNerve(item.id)}
               >
-                <div className="space-y-3 text-[13px] leading-5 text-[#59656a]">
+                <div className="space-y-3 text-[13px] leading-5 text-[#3f5873]">
                   <p>
-                    <span className="font-semibold text-[#587266]">Its job:</span> {item.role}
+                    <span className="font-semibold text-[#2e7d5b]">Its job:</span> {item.role}
                   </p>
-                  <p className="border-t border-[#d7cbb9] pt-3">
-                    <span className="font-semibold text-[#a75239]">In an ashfall:</span> {item.effect}
+                  <p className="border-t border-[#c9dbec] pt-3">
+                    <span className="font-semibold text-[#9a5410]">In an ashfall:</span> {item.effect}
                   </p>
                 </div>
               </Reveal>
@@ -544,40 +531,53 @@ export function AshPage() {
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-[1320px] gap-6 px-6 pb-16 md:grid-cols-[.8fr_1.2fr] md:px-10 md:pb-24">
-        <div className="relative overflow-hidden bg-[#27383c] p-7 text-[#f3efe5] md:p-9">
+      <section className="mx-auto grid max-w-[1180px] gap-6 px-6 pb-16 md:grid-cols-[.8fr_1.2fr] md:px-10 md:pb-24">
+        <div className="relative overflow-hidden rounded-2xl bg-[#1f5a96] p-7 text-white md:p-9">
           <div className="relative">
-            <div className="mb-5 flex items-center gap-2 text-xs font-semibold text-[#d5a47e]">
-              <AlertTriangle size={14} /> If ash is in the air
-            </div>
-            <h2 className="serif max-w-sm text-3xl leading-tight">The less of it you breathe in, the better.</h2>
-            <p className="mt-4 max-w-md text-sm leading-6 text-[#d2d7d1]">
+            <h2 className="heading max-w-sm text-3xl leading-tight">The less of it you breathe in, the better.</h2>
+            <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-xs font-semibold text-white"><AlertTriangle size={14} /> If ash is in the air</div>
+            <p className="mt-4 max-w-md text-sm leading-6 text-[#e3eefa]">
               No two ashfalls are the same, so local emergency and public-health advice is what to go by, both during an
               eruption and for a while after it.
             </p>
           </div>
         </div>
-        <div className="grid gap-px bg-[#d5c8b5] sm:grid-cols-2">
-          <div className="bg-[#f7f3eb] p-6 md:p-8">
-            <span className="text-xs font-semibold text-[#a75239]">01 / Limit</span>
-            <h3 className="serif mt-3 text-xl">Stay out of ashfall</h3>
-            <p className="mt-2 text-sm leading-6 text-[#59656a]">
+        <div className="grid gap-3 sm:grid-cols-2">
+          <div className="rounded-2xl border border-[#c9dbec] bg-white p-6 md:p-8">
+            <div className="flex items-start gap-3">
+              <span className="step-num mt-0.5">1</span>
+              <div>
+                <h3 className="heading text-xl leading-snug">Stay out of ashfall</h3>
+                <span className="tag mt-1.5">Limit</span>
+              </div>
+            </div>
+            <p className="mt-2 text-sm leading-6 text-[#3f5873]">
               Stay inside while ash is falling, with the windows and doors shut. Anything strenuous outdoors is better
               left until later.
             </p>
           </div>
-          <div className="bg-[#f7f3eb] p-6 md:p-8">
-            <span className="text-xs font-semibold text-[#a75239]">02 / Filter</span>
-            <h3 className="serif mt-3 text-xl">Use the right protection</h3>
-            <p className="mt-2 text-sm leading-6 text-[#59656a]">
+          <div className="rounded-2xl border border-[#c9dbec] bg-white p-6 md:p-8">
+            <div className="flex items-start gap-3">
+              <span className="step-num mt-0.5">2</span>
+              <div>
+                <h3 className="heading text-xl leading-snug">Use the right protection</h3>
+                <span className="tag mt-1.5">Filter</span>
+              </div>
+            </div>
+            <p className="mt-2 text-sm leading-6 text-[#3f5873]">
               If you do have to go out, check local advice on particulate respirators and on fitting one properly. A
               cloth face covering is not likely to stop particles this fine.
             </p>
           </div>
-          <div className="bg-[#f7f3eb] p-6 md:col-span-2 md:p-8">
-            <span className="text-xs font-semibold text-[#a75239]">03 / Get help</span>
-            <h3 className="serif mt-3 text-xl">Breathing symptoms need attention</h3>
-            <p className="mt-2 max-w-[680px] text-sm leading-6 text-[#59656a]">
+          <div className="rounded-2xl border border-[#c9dbec] bg-white p-6 md:col-span-2 md:p-8">
+            <div className="flex items-start gap-3">
+              <span className="step-num mt-0.5">3</span>
+              <div>
+                <h3 className="heading text-xl leading-snug">Breathing symptoms need attention</h3>
+                <span className="tag mt-1.5">Get help</span>
+              </div>
+            </div>
+            <p className="mt-2 max-w-[680px] text-sm leading-6 text-[#3f5873]">
               Get medical help if breathing becomes difficult, or if symptoms keep getting worse. Anyone with asthma or
               another respiratory condition should stick to the plan their clinician gave them and follow local health
               guidance. This page was written to explain the subject; it is not medical advice and cannot diagnose
@@ -587,14 +587,13 @@ export function AshPage() {
         </div>
       </section>
 
-      <footer className="border-t border-[#d5c8b5]">
-        <div className="mx-auto flex max-w-[1320px] flex-col gap-4 px-6 py-6 text-xs text-[#77766e] sm:flex-row sm:items-center sm:justify-between md:px-10">
+      <footer className="border-t border-[#c9dbec]">
+        <div className="mx-auto flex max-w-[1180px] flex-col gap-4 px-6 py-6 text-xs text-[#5b7189] sm:flex-row sm:items-center sm:justify-between md:px-10">
           <div className="flex items-center gap-3">
             <img src={`${import.meta.env.BASE_URL}the-other-cavaliers.png`} alt="" className="h-8 w-8 rounded-full object-cover object-[50%_26%]" />
-            <span className="font-semibold text-[#25343a]">the other cavaliers</span>
-            <span className="hidden h-4 w-px bg-[#cbbba4] sm:block" />
+            <span className="font-semibold text-[#16324f]">the other cavaliers</span>
+            <span className="hidden h-4 w-px bg-[#a9c4de] sm:block" />
             <span className="flex items-center gap-2">
-              <span className="h-2 w-2 rounded-full bg-[#a75239]" />
               A student field guide
             </span>
           </div>

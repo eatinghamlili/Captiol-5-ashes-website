@@ -22,8 +22,8 @@ function hrefFor(id: PageId) {
 
 function PageSwitcher({ page, onNavigate }: { page: PageId; onNavigate: (id: PageId) => void }) {
   return (
-    <nav aria-label="Pages" className="relative z-30 mx-auto max-w-[1320px] px-6 pt-4 md:px-10 md:pt-5">
-      <ul className="inline-flex flex-wrap gap-1 rounded-full border border-[#d7cbb9] bg-[#ebe4d8] p-1">
+    <nav aria-label="Pages" className="relative z-30 border-b border-[#c9dbec] bg-white">
+      <ul className="mx-auto flex max-w-[1180px] gap-1 overflow-x-auto px-4 md:px-10">
         {pages.map((item) => {
           const active = item.id === page;
           return (
@@ -36,9 +36,9 @@ function PageSwitcher({ page, onNavigate }: { page: PageId; onNavigate: (id: Pag
                   event.preventDefault();
                   onNavigate(item.id);
                 }}
-                className={`flex items-center gap-2 rounded-full px-3.5 py-1.5 text-[11px] transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#a75239] ${active ? 'bg-[#25343a] text-[#f3efe5]' : 'text-[#59656a] hover:text-[#a75239]'}`}
+                className={`-mb-px flex items-center gap-2 whitespace-nowrap border-b-[3px] px-3 py-3 text-sm font-semibold transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[#2563a8] ${active ? 'border-[#2563a8] text-[#16324f]' : 'border-transparent text-[#4f6780] hover:text-[#2563a8]'}`}
               >
-                <span className={`font-semibold ${active ? 'text-[#d5a47e]' : 'text-[#a75239]'}`}>{item.number}</span>
+                <span className={`step-num !h-6 !w-6 !text-xs ${active ? '' : '!bg-[#c9dbec] !text-[#2f557f]'}`}>{Number(item.number)}</span>
                 {item.label}
               </a>
             </li>
@@ -70,7 +70,7 @@ function App() {
   };
 
   return (
-    <div className="bg-[#f3efe5]">
+    <div className="min-h-[100dvh] bg-[#f3f8fd] text-[#16324f]">
       <PageSwitcher page={page} onNavigate={navigate} />
       {page === 'nanotech' ? <NanotechPage /> : <AshPage />}
     </div>
