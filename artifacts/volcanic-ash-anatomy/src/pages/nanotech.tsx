@@ -159,40 +159,62 @@ const shutdownCauses = [
   },
 ];
 
-// Diagram coordinates. The body is centred on x = 210; the viewBox adds a margin
-// on both sides for the callouts.
-const VIEW = { x: -90, y: 0, w: 600, h: 800 };
-const pctX = (x: number) => `${((x - VIEW.x) / VIEW.w) * 100}%`;
-const pctRight = (x: number) => `${((VIEW.x + VIEW.w - x) / VIEW.w) * 100}%`;
-const pctY = (y: number) => `${(y / VIEW.h) * 100}%`;
+// Diagram coordinates match the pixels of body-defences-unlabelled.png (528 × 900).
+const VIEW = { w: 528, h: 900 };
 
-// Each callout either starts at a left edge (right-hand labels) or ends at a
-// right edge (left-hand labels), so its leader line always meets the box.
-const callouts: Record<OrganId, { side: 'left' | 'right'; edge: number; top: number; leader: string; dot: [number, number] }> = {
-  brain: { side: 'right', edge: 262, top: 26, leader: 'M238 60C248 50 254 42 262 40', dot: [238, 60] },
-  lungs: { side: 'left', edge: 118, top: 150, leader: 'M166 248C150 220 136 180 118 164', dot: [166, 248] },
-  heart: { side: 'right', edge: 334, top: 258, leader: 'M246 282C280 280 310 274 334 272', dot: [246, 282] },
-  liver: { side: 'left', edge: 76, top: 336, leader: 'M160 352C130 352 100 350 76 350', dot: [160, 352] },
-  kidneys: { side: 'right', edge: 334, top: 400, leader: 'M252 412C280 414 310 414 334 414', dot: [252, 412] },
-  blood: { side: 'left', edge: 136, top: 560, leader: 'M178 584C164 580 150 576 136 574', dot: [178, 584] },
-};
+type Zone = { cx: number; cy: number; rx: number; ry: number; rotate?: number };
 
-const nanobots: Record<OrganId, [number, number][]> = {
-  brain: [[192, 56], [204, 68], [224, 56], [232, 76], [214, 86], [196, 80]],
-  lungs: [[170, 230], [164, 272], [184, 302], [250, 232], [258, 274], [246, 306], [178, 256]],
-  heart: [[214, 282], [232, 292], [224, 304], [240, 276]],
-  liver: [[172, 346], [198, 352], [222, 344], [186, 362], [262, 352]],
-  kidneys: [[178, 410], [242, 410], [210, 462], [186, 426], [236, 428]],
-  blood: [
-    [118, 236], [107, 300], [98, 390], [302, 236], [313, 300], [322, 390],
-    [181, 520], [176, 610], [178, 700], [239, 520], [244, 610], [242, 700], [210, 166],
+// Where each organ sits on the drawing. The heart, liver, spleen and kidneys are
+// not drawn in the picture, so their zones mark where they would be.
+const zones: Record<Exclude<OrganId, 'blood'>, Zone[]> = {
+  brain: [{ cx: 255, cy: 105, rx: 82, ry: 60 }],
+  lungs: [
+    { cx: 208, cy: 408, rx: 50, ry: 88 },
+    { cx: 331, cy: 396, rx: 47, ry: 80 },
+  ],
+  heart: [{ cx: 278, cy: 452, rx: 28, ry: 23, rotate: -25 }],
+  liver: [
+    { cx: 214, cy: 528, rx: 60, ry: 28, rotate: -8 },
+    { cx: 374, cy: 520, rx: 13, ry: 24, rotate: 20 },
+  ],
+  kidneys: [
+    { cx: 200, cy: 614, rx: 19, ry: 31 },
+    { cx: 344, cy: 614, rx: 19, ry: 31 },
+    { cx: 262, cy: 838, rx: 26, ry: 18 },
   ],
 };
 
-const armVessel = 'M206 182C176 180 138 192 118 234L102 332L94 432';
-const armVesselRight = 'M214 182C244 180 282 192 302 234L318 332L326 432';
-const legVessel = 'M212 466C198 480 184 500 179 540L176 600L180 740';
-const legVesselRight = 'M212 466C226 480 240 500 241 540L244 600L240 740';
+// Main blood vessels, shown only while the bloodstream is picked.
+const vessels = [
+  'M268 250L268 790',
+  'M262 250L252 190',
+  'M268 300C220 300 150 320 112 380L84 500',
+  'M268 300C316 300 386 316 420 376L446 500',
+  'M268 790L222 890',
+  'M268 790L314 890',
+];
+
+const nanobots: Record<OrganId, [number, number][]> = {
+  brain: [[222, 86], [250, 70], [282, 88], [300, 116], [238, 126], [268, 140]],
+  lungs: [[194, 370], [216, 420], [190, 460], [320, 358], [342, 410], [324, 448], [230, 382]],
+  heart: [[266, 446], [286, 458], [276, 470], [292, 440]],
+  liver: [[178, 526], [214, 514], [246, 534], [206, 546], [374, 518]],
+  kidneys: [[200, 604], [344, 604], [262, 836], [204, 630], [340, 630]],
+  blood: [[268, 282], [268, 560], [268, 720], [150, 352], [96, 450], [386, 346], [434, 448], [236, 856], [300, 856], [256, 214]],
+};
+
+function ZoneShape({ zone }: { zone: Zone }) {
+  return (
+    <ellipse
+      className="nano-zone"
+      cx={zone.cx}
+      cy={zone.cy}
+      rx={zone.rx}
+      ry={zone.ry}
+      transform={zone.rotate ? `rotate(${zone.rotate} ${zone.cx} ${zone.cy})` : undefined}
+    />
+  );
+}
 
 function BodyIllustration({ selected, onSelect }: { selected: OrganId; onSelect: (id: OrganId) => void }) {
   const region = (id: OrganId) => ({
@@ -207,107 +229,36 @@ function BodyIllustration({ selected, onSelect }: { selected: OrganId; onSelect:
   });
 
   return (
-    <div className="w-full max-w-[470px]">
+    <div className="w-full max-w-[400px]">
       <div className="diagram-paper">
         <div className="anatomy-figure">
           <svg
-            viewBox={`${VIEW.x} ${VIEW.y} ${VIEW.w} ${VIEW.h}`}
+            viewBox={`0 0 ${VIEW.w} ${VIEW.h}`}
             className="nano-svg block h-auto w-full"
             role="group"
-            aria-label="Front view of a human body with the brain, lungs, heart, liver and spleen, kidneys and bladder, and the main blood vessels marked. Small dots show nanobots spread through the body."
+            aria-label="Front view of the head and upper body. Hover areas mark the brain, lungs, heart, liver and spleen, kidneys and bladder, and the main blood vessels. Small dots show nanobots spread through the body."
           >
-            <defs>
-              <path
-                id="nano-body-half"
-                d="M210 128L194 128L193 158C176 164 150 168 132 178C112 188 104 206 102 230L92 330L80 432C78 448 80 462 90 466C100 470 106 460 106 446L112 340L128 252C136 300 146 350 146 392C146 414 140 432 140 452L152 600L162 742C160 760 166 774 182 776L196 776C200 770 200 758 198 744L198 604L206 476C207 470 209 468 210 468"
-              />
-            </defs>
-
-            {/* Body outline: one half, mirrored. */}
-            <use href="#nano-body-half" className="nano-skin" />
-            <use href="#nano-body-half" className="nano-skin" transform="matrix(-1 0 0 1 420 0)" />
+            <image href={`${import.meta.env.BASE_URL}assets/body-defences-unlabelled.png`} width={VIEW.w} height={VIEW.h} />
 
             {/* Bloodstream sits under everything else. */}
             <g {...region('blood')}>
-              <path className="nano-hit" d={armVessel} />
-              <path className="nano-hit" d={armVesselRight} />
-              <path className="nano-hit" d={legVessel} />
-              <path className="nano-hit" d={legVesselRight} />
+              {vessels.map((d) => (
+                <path key={`hit-${d}`} className="nano-hit" d={d} />
+              ))}
               <g className="nano-vessel">
-                <path d="M210 140L212 470" />
-                <path d="M204 182L202 128" />
-                <path d="M216 182L218 128" />
-                <path d={armVessel} />
-                <path d={armVesselRight} />
-                <path d={legVessel} />
-                <path d={legVesselRight} />
+                {vessels.map((d) => (
+                  <path key={d} d={d} />
+                ))}
               </g>
             </g>
 
-            <ellipse className="nano-skin" cx="210" cy="80" rx="44" ry="54" />
-
-            <g {...region('brain')}>
-              <ellipse className="nano-hit" cx="210" cy="68" rx="40" ry="33" />
-              <path
-                className="nano-organ nano-organ--brain"
-                d="M178 76C172 56 186 40 206 40C226 36 246 48 244 66C246 82 236 94 220 94C206 98 188 94 178 76Z"
-              />
-              <g className="nano-detail">
-                <path d="M210 42L210 94" />
-                <path d="M186 60C194 54 200 62 206 56" />
-                <path d="M214 52C222 46 228 54 236 52" />
-                <path d="M188 80C196 74 202 82 206 76" />
-                <path d="M216 72C224 66 230 74 238 70" />
+            {(Object.keys(zones) as (keyof typeof zones)[]).map((id) => (
+              <g key={id} {...region(id)}>
+                {zones[id].map((zone, index) => (
+                  <ZoneShape key={index} zone={zone} />
+                ))}
               </g>
-            </g>
-
-            <g {...region('lungs')}>
-              <path className="nano-detail nano-detail--airway" d="M210 136L210 196M210 196C204 204 196 208 186 212M210 196C216 204 224 208 234 212" />
-              <path
-                className="nano-organ nano-organ--lung"
-                d="M196 194C178 186 160 200 154 228C148 258 148 298 152 324C168 332 186 330 200 320C202 280 202 230 196 194Z"
-              />
-              <path
-                className="nano-organ nano-organ--lung"
-                d="M224 194C242 186 260 200 266 228C272 258 272 298 268 324C254 332 240 330 230 324C234 304 240 292 236 278C230 262 222 246 224 194Z"
-              />
-              <g className="nano-detail">
-                <path d="M190 212C182 232 176 256 174 282M182 240C172 250 166 262 164 276M184 266C188 282 188 296 184 310" />
-                <path d="M230 212C238 232 246 256 250 282M240 240C250 250 256 262 258 276" />
-              </g>
-            </g>
-
-            <g {...region('heart')}>
-              <path
-                className="nano-organ nano-organ--heart"
-                d="M216 268C208 258 192 262 194 278C196 294 212 306 228 318C240 306 254 292 254 278C254 262 238 258 230 268C226 262 220 262 216 268Z"
-              />
-            </g>
-
-            <g {...region('liver')}>
-              <path
-                className="nano-organ nano-organ--liver"
-                d="M148 340C176 330 226 330 248 340C244 354 222 366 196 372C174 378 154 372 150 362C148 354 148 346 148 340Z"
-              />
-              <ellipse className="nano-organ nano-organ--spleen" cx="262" cy="354" rx="9" ry="16" transform="rotate(-20 262 354)" />
-            </g>
-
-            <g {...region('kidneys')}>
-              <rect className="nano-hit" x="160" y="386" width="100" height="88" rx="10" />
-              <g className="nano-detail">
-                <path d="M188 422C190 438 198 452 204 458" />
-                <path d="M232 422C230 438 222 452 216 458" />
-              </g>
-              <path
-                className="nano-organ nano-organ--kidney"
-                d="M184 390C172 386 164 398 166 412C168 426 178 432 188 426C182 418 182 404 188 398C190 394 188 390 184 390Z"
-              />
-              <path
-                className="nano-organ nano-organ--kidney"
-                d="M236 390C248 386 256 398 254 412C252 426 242 432 232 426C238 418 238 404 232 398C230 394 232 390 236 390Z"
-              />
-              <ellipse className="nano-organ nano-organ--bladder" cx="210" cy="464" rx="14" ry="10" />
-            </g>
+            ))}
 
             {/* Nanobots, drawn far larger than life. */}
             <g aria-hidden="true">
@@ -318,50 +269,27 @@ function BodyIllustration({ selected, onSelect }: { selected: OrganId; onSelect:
                     className={`nano-dot${selected === id ? ' is-active' : ''}`}
                     cx={cx}
                     cy={cy}
-                    r="3.4"
+                    r="6"
                     style={{ animationDelay: `${(index % 4) * 0.22}s` }}
                   />
                 )),
               )}
             </g>
-
-            <g className="nano-leaders" aria-hidden="true">
-              {order.map((id) => (
-                <g key={id} className={selected === id ? 'is-active' : ''}>
-                  <path d={callouts[id].leader} />
-                  <circle cx={callouts[id].dot[0]} cy={callouts[id].dot[1]} r="4" />
-                </g>
-              ))}
-            </g>
           </svg>
 
-          {order.map((id) => {
-            const c = callouts[id];
-            return (
-              <div
-                key={id}
-                aria-hidden="true"
-                className={`diagram-callout nano-callout${selected === id ? ' is-active' : ''}`}
-                style={{
-                  top: pctY(c.top),
-                  ...(c.side === 'right' ? { left: pctX(c.edge) } : { right: pctRight(c.edge) }),
-                }}
-              >
-                <strong>{organs[id].short}</strong>
-                <span> · {calloutEffects[id]}</span>
-              </div>
-            );
-          })}
+          <div aria-hidden="true" className="nano-label">
+            <strong>{organs[selected].short}</strong> · {calloutEffects[selected]}
+          </div>
         </div>
       </div>
-      <div className="mt-2 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-[.65rem] text-[#5b7189]">
+      <div className="mt-2 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-[.7rem] text-[#5b7189]">
         <span className="flex items-center gap-1.5">
           <span className="h-2 w-2 rounded-full bg-[#2a7f9e]" /> Nanobot
         </span>
         <span className="flex items-center gap-1.5">
           <span className="h-2 w-2 rounded-full bg-[#2563a8]" /> Malfunctioning in the area you picked
         </span>
-        <span>Drawn for this page. Simplified; nanobots shown far larger than life.</span>
+        <span>Diagram: “Chemical, biochemical and physical defences of the body”, labels removed. Nanobots shown far larger than life.</span>
       </div>
     </div>
   );
@@ -437,7 +365,7 @@ export function NanotechPage() {
           </div>
           <div className="grid min-h-[590px] lg:grid-cols-[minmax(0,1.15fr)_minmax(330px,.85fr)]">
             <div className="relative flex min-h-[470px] flex-col items-center justify-center overflow-hidden border-b border-[#c9dbec] px-5 py-8 lg:border-b-0 lg:border-r lg:px-8">
-              <div className="pointer-events-none absolute left-5 top-5 text-xs text-[#6f86a0]">Whole body / front view</div>
+              <div className="pointer-events-none absolute left-5 top-5 text-xs text-[#6f86a0]">Upper body / front view</div>
               <BodyIllustration selected={selected} onSelect={setSelected} />
               <div className="relative z-10 mt-4 flex flex-wrap justify-center gap-2">
                 {order.map((id) => (
@@ -457,7 +385,7 @@ export function NanotechPage() {
               <div className="flex items-start justify-between">
                 <div>
                   <h3 className="heading text-3xl leading-tight md:text-[2.4rem]">{current.name}</h3>
-                  <p className="mt-2 text-sm text-[#5b7189]">Stop {Number(current.number)} of {total} · {current.subtitle}</p>
+                  <p className="mt-2 text-sm text-[#5b7189]">Stop {Number(current.number)} of {order.length} · {current.subtitle}</p>
                 </div>
               </div>
               <div className="my-7 h-px bg-[#c9dbec]" />
