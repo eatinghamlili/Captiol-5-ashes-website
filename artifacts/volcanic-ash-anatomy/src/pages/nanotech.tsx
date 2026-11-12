@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Activity, AlertTriangle, ArrowDown, Check, ChevronRight, Cpu, WifiOff } from 'lucide-react';
+import { Activity, AlertTriangle, ArrowDown, Check, ChevronRight, Cpu } from 'lucide-react';
 
 import { Reveal, RevealToggle } from '@/components/reveal';
 
@@ -120,42 +120,55 @@ const calloutEffects: Record<OrganId, string> = {
   blood: 'Clots & fever',
 };
 
-const shutdownSteps = [
+const defenceLines = [
   {
-    number: '01',
-    title: 'The malfunction',
-    body: 'Patients in an experimental trial start reporting symptoms in different parts of the body. Scans show nanobots gathering in places they were never meant to be.',
+    title: 'Physical and Chemical Barriers',
+    tag: 'First line',
+    items: [
+      ['Skin', 'Acts as a continuous physical barrier that blocks foreign substances from entering internal tissues.'],
+      [
+        'Mucous Membranes and Cilia',
+        'Sticky mucus traps dust, pollen, and microscopic particles, while microscopic hair-like cilia sweep the trapped debris out of the respiratory tract.',
+      ],
+      ['Reflexes', 'Coughing, sneezing, tearing, and vomiting physically flush foreign irritants out of the body.'],
+      [
+        'Chemical Protection',
+        'Stomach acid, tears, and saliva contain enzymes and acidic environments that break down foreign substances.',
+      ],
+    ],
   },
   {
-    number: '02',
-    title: 'The shutdown signal',
-    body: 'Every nanobot was built to listen for an emergency signal — a pulse sent from outside the body that tells it to switch itself off. The scientists send it.',
+    title: 'Innate Immune System',
+    tag: 'Second line · non-specific',
+    items: [
+      [
+        'Phagocytes',
+        'Specialized white blood cells like neutrophils and macrophages engulf, digest, and clear out foreign particles through a process called phagocytosis.',
+      ],
+      [
+        'Inflammation',
+        'Increases blood flow to the affected area, allowing immune cells and nutrients to reach and isolate the foreign material quickly.',
+      ],
+      [
+        'Histamine Release',
+        'Released by mast cells when foreign substances or allergens are detected, causing blood vessels to widen and tissues to swell to help isolate the irritant.',
+      ],
+    ],
   },
   {
-    number: '03',
-    title: 'No response',
-    body: 'Nothing changes, and some patients get worse. With the off switch gone, doctors have to find other ways to watch over them and keep them safe.',
-  },
-];
-
-const shutdownCauses = [
-  {
-    eyebrow: 'Possibility A',
-    title: 'Broken receivers',
-    teaser: 'The part that listens may have failed first.',
-    body: 'Each nanobot needs a tiny sensor to pick up the shutdown pulse. If the same fault that caused the malfunction also damaged that sensor, the signal arrives and nothing hears it.',
-  },
-  {
-    eyebrow: 'Possibility B',
-    title: 'Out of reach',
-    teaser: 'Bone and deep tissue weaken signals.',
-    body: 'Signals sent from outside the body, like ultrasound or light, lose strength as they pass through tissue, and the skull blocks a lot of them. Nanobots lodged deep in the brain or the liver may never receive it at all.',
-  },
-  {
-    eyebrow: 'Possibility C',
-    title: 'Clumped together',
-    teaser: 'A cluster does not behave like a single nanobot.',
-    body: 'The shutdown was tested on nanobots working alone. Packed into a clot or an organ’s filters, the ones on the outside may shield the ones inside, or the whole cluster may respond in ways nobody tested.',
+    title: 'Adaptive Immune System',
+    tag: 'Third line · specific',
+    items: [
+      [
+        'B-Cells and Antibodies',
+        'B-cells produce specific antibodies (such as IgE or IgG) that bind to recognized foreign proteins, marking them for destruction.',
+      ],
+      ['T-Cells', 'Identify infected or abnormal cells and coordinate the overall immune response.'],
+      [
+        'Immune Memory',
+        'Remembers specific foreign materials so the body can respond much faster upon future exposures.',
+      ],
+    ],
   },
 ];
 
@@ -498,46 +511,33 @@ export function NanotechPage() {
         </div>
       </section>
 
-      <section id="nano-shutdown" className="mx-auto max-w-[1180px] px-6 pb-16 md:px-10 md:pb-24">
-        <div className="flex flex-wrap items-end justify-between gap-4 border-b border-[#c9dbec] pb-5">
-          <div>
-            <h2 className="heading text-2xl md:text-3xl">Figure 2: The failed shutdown</h2>
-            <p className="mt-2 max-w-[600px] text-sm leading-6 text-[#3f5873]">
-              The nanobots had a safety net: an emergency signal that should switch every one of them off. When it was
-              needed, it did nothing.
-            </p>
-          </div>
-          <div className="flex items-center gap-2 text-xs font-semibold text-[#2563a8]">
-            <WifiOff size={14} /> Signal sent · no response
-          </div>
+      <section id="nano-defences" className="mx-auto max-w-[1180px] px-6 pb-16 md:px-10 md:pb-24">
+        <div className="border-b border-[#c9dbec] pb-5">
+          <h2 className="heading text-2xl md:text-3xl">The body’s three lines of defence</h2>
+          <p className="mt-2 max-w-[600px] text-sm leading-6 text-[#3f5873]">
+            How the body keeps foreign material out, and clears it away when it gets in.
+          </p>
         </div>
-
         <ol className="mt-5 grid gap-3 md:grid-cols-3">
-          {shutdownSteps.map((item, i) => (
-            <li key={item.number} className={`rounded-2xl border border-[#c9dbec] p-6 md:p-8 ${i === shutdownSteps.length - 1 ? 'bg-[#e6f0fa]' : 'bg-[#ffffff]'}`}>
-              <div className="flex items-center gap-2.5">
-                <span className="step-num">{Number(item.number)}</span>
-                <h3 className="heading text-xl">{item.title}</h3>
+          {defenceLines.map((line, i) => (
+            <li key={line.title} className="rounded-2xl border border-[#c9dbec] bg-white p-6 md:p-7">
+              <div className="flex items-start gap-3">
+                <span className="step-num mt-0.5">{i + 1}</span>
+                <div>
+                  <h3 className="heading text-xl leading-snug">{line.title}</h3>
+                  <span className="tag mt-1.5">{line.tag}</span>
+                </div>
               </div>
-              <p className="mt-2 text-sm leading-6 text-[#3f5873]">{item.body}</p>
+              <ul className="mt-4 space-y-3">
+                {line.items.map(([term, text]) => (
+                  <li key={term} className="text-sm leading-6 text-[#3f5873]">
+                    <span className="font-semibold text-[#16324f]">{term}:</span> {text}
+                  </li>
+                ))}
+              </ul>
             </li>
           ))}
         </ol>
-
-        <div className="mt-10 flex flex-wrap items-baseline justify-between gap-3">
-          <p className="text-sm text-[#3f5873]">
-            <span className="heading text-lg text-[#16324f]">Why the off switch might have failed.</span>{' '}
-            <span className="text-xs text-[#5b7189]">Nobody knows yet. Three working theories:</span>
-          </p>
-          <RevealToggle open={revealAll} onToggle={toggleReveal} />
-        </div>
-        <div className="mt-3 grid gap-3 md:grid-cols-3">
-          {shutdownCauses.map((item) => (
-            <Reveal key={item.title} open={revealAll} eyebrow={item.eyebrow} title={item.title} teaser={item.teaser}>
-              <p className="text-[13px] leading-5 text-[#3f5873]">{item.body}</p>
-            </Reveal>
-          ))}
-        </div>
       </section>
 
       <section className="mx-auto grid max-w-[1180px] gap-6 px-6 pb-16 md:grid-cols-[.8fr_1.2fr] md:px-10 md:pb-24">
