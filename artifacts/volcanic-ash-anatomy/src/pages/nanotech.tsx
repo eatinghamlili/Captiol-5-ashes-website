@@ -270,7 +270,6 @@ function BodyIllustration({ selected, onSelect }: { selected: OrganId; onSelect:
                     cx={cx}
                     cy={cy}
                     r="6"
-                    style={{ animationDelay: `${(index % 4) * 0.22}s` }}
                   />
                 )),
               )}
