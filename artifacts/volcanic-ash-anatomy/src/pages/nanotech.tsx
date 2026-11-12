@@ -172,6 +172,83 @@ const defenceLines = [
   },
 ];
 
+type Source = { cite: string; title: string; where?: string; url: string };
+
+const sourceGroups: { heading: string; sources: Source[] }[] = [
+  {
+    heading: 'The body’s defences',
+    sources: [
+      {
+        cite: 'InformedHealth.org (IQWiG).',
+        title: 'The innate and adaptive immune systems.',
+        url: 'https://www.informedhealth.org/the-innate-and-adaptive-immune-systems.html',
+      },
+      {
+        cite: 'Cleveland Clinic.',
+        title: 'Immune System: Function, Conditions & Disorders.',
+        url: 'https://my.clevelandclinic.org/health/body/21196-immune-system',
+      },
+      {
+        cite: 'Cleveland Clinic.',
+        title: 'Mucosa: Function, Anatomy & Definition.',
+        url: 'https://my.clevelandclinic.org/health/body/23930-mucosa',
+      },
+      {
+        cite: 'Cleveland Clinic.',
+        title: 'Mast Cells: Anatomy, Function & Diseases.',
+        url: 'https://my.clevelandclinic.org/health/body/mast-cells',
+      },
+      {
+        cite: 'Cleveland Clinic.',
+        title: 'Antibodies: Definition, Types & Function.',
+        url: 'https://my.clevelandclinic.org/health/body/22971-antibodies',
+      },
+    ],
+  },
+  {
+    heading: 'Medical nanotechnology',
+    sources: [
+      {
+        cite: 'National Cancer Institute.',
+        title: 'Cancer Nanotechnology Research.',
+        url: 'https://www.cancer.gov/nano/cancer-nanotechnology/research',
+      },
+      {
+        cite: 'Cleveland Clinic.',
+        title: 'Blood-Brain Barrier (BBB): What It Is and Function.',
+        url: 'https://my.clevelandclinic.org/health/body/24931-blood-brain-barrier-bbb',
+      },
+      {
+        cite: 'Tsoi, K. M., et al. (2016).',
+        title: 'Mechanism of hard-nanomaterial clearance by the liver.',
+        where: 'Nature Materials, 15, 1212–1221',
+        url: 'https://doi.org/10.1038/nmat4718',
+      },
+      {
+        cite: 'Choi, H. S., et al. (2007).',
+        title: 'Renal clearance of quantum dots.',
+        where: 'Nature Biotechnology, 25, 1165–1170',
+        url: 'https://doi.org/10.1038/nbt1340',
+      },
+    ],
+  },
+  {
+    heading: 'How doctors keep watch',
+    sources: [
+      {
+        cite: 'MedlinePlus.',
+        title: 'Troponin Test.',
+        url: 'https://medlineplus.gov/lab-tests/troponin-test/',
+      },
+      {
+        cite: 'MedlinePlus.',
+        title: 'Creatinine Test.',
+        url: 'https://medlineplus.gov/lab-tests/creatinine-test/',
+      },
+    ],
+  },
+];
+
 // Diagram coordinates match the pixels of body-defences-unlabelled.png (528 × 900).
 const VIEW = { w: 528, h: 900 };
 
@@ -591,6 +668,42 @@ export function NanotechPage() {
               and this page is not medical advice.
             </p>
           </div>
+        </div>
+      </section>
+
+      <section id="nano-sources" className="mx-auto max-w-[1180px] px-6 pb-16 md:px-10 md:pb-20">
+        <div className="rounded-2xl border border-[#c9dbec] bg-white p-6 md:p-8">
+          <h2 className="heading text-2xl">Sources</h2>
+          <p className="mt-2 max-w-[680px] text-sm leading-6 text-[#3f5873]">
+            Where the facts on this page come from. The nanobot malfunction itself is a made-up scenario, but the body
+            parts, defences and medical tests it describes are real. Websites accessed 12 November 2026.
+          </p>
+          <div className="mt-6 grid gap-6 md:grid-cols-3">
+            {sourceGroups.map((group) => (
+              <div key={group.heading}>
+                <h3 className="heading text-base">{group.heading}</h3>
+                <ul className="mt-2 space-y-3">
+                  {group.sources.map((source) => (
+                    <li key={source.url} className="text-[13px] leading-5 text-[#3f5873]">
+                      {source.cite} <em>{source.title}</em> {source.where ? `${source.where}. ` : ''}
+                      <a
+                        href={source.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="[overflow-wrap:anywhere] text-[#2563a8] underline underline-offset-2 hover:text-[#1d4f88]"
+                      >
+                        {source.url.replace(/^https:\/\/(www\.)?/, '')}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+          <p className="mt-6 border-t border-[#c9dbec] pt-4 text-[13px] leading-5 text-[#5b7189]">
+            Body diagram: “Chemical, biochemical and physical defences of the body”, with its labels removed. Original
+            source to be added.
+          </p>
         </div>
       </section>
 
